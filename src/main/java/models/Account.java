@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Account {
 	
 	int accountId;
@@ -45,6 +47,33 @@ public class Account {
 
 	public void setBalance(float balance) {
 		this.balance = balance;
+	}
+	
+	public String balanceToString() {
+		ArrayList<Character> balanceString = new ArrayList<Character>();
+		String string = "";
+		int count = 0;
+		
+		for (char c : String.format("%.2f", balance).toCharArray())
+			balanceString.add(c);
+		
+		if (balance > 999.00) {
+			for (int i = balanceString.size() - 4; i >= 0; i--) {
+				count++;
+				if (count == 3 && i == 0)
+					break;
+				else if (count == 3) {
+					balanceString.add(i, ',');
+					count = 0;
+				}
+			}
+		}
+		
+		for (char c : balanceString)
+			string = string + c;
+				
+		
+		return "$" + string;
 	}
 
 	@Override

@@ -94,16 +94,16 @@ public class Console {
 					else {
 						List<Account> accountList = asi.getAccounts(bankUser.getId());
 						
-						System.out.println("-------------------------------------------------");
-					    System.out.printf("%10s %10s %10s %15s", "Account", "User", "Name", "Balance");
+						System.out.println("------------------------------------------------------");
+					    System.out.printf("%10s %10s %15s %15s", "Account", "User", "Name", "Balance");
 					    System.out.println();
-					    System.out.println("-------------------------------------------------");
+					    System.out.println("------------------------------------------------------");
 						for (Account a : accountList) {
-							System.out.format("%10d %10d %10s %15.2f",
-					                a.getAccountId(), a.getUserId(), a.getName(), a.getBalance());
+							System.out.format("%10d %10d %15s %15s",
+					                a.getAccountId(), a.getUserId(), a.getName(), a.balanceToString());
 					        System.out.println();
 						}
-					    System.out.println("-------------------------------------------------");
+					    System.out.println("------------------------------------------------------");
 					}
 					break;
 				
@@ -189,11 +189,9 @@ public class Console {
 							BankUser newBankUser = new BankUser(0000, newUsername, newPassword, 0);
 							bsi.addUser(newBankUser);
 							System.out.println("*User created successfully*");
-							
 							break;
 						}
 					}
-					
 					break;
 					
 				case 9:
@@ -259,7 +257,6 @@ public class Console {
 								break;
 						}
 					}
-					
 					break;
 					
 				case 10:
@@ -296,7 +293,6 @@ public class Console {
 							break;
 						}
 					}	
-					
 					break;
 			
 				case 11:
@@ -324,16 +320,16 @@ public class Console {
 					else {
 						List<Account> accountList = asi.getAccounts(bankUser.getId());
 						
-						System.out.println("-------------------------------------------------");
-					    System.out.printf("%10s %10s %10s %15s", "Account", "User", "Name", "Balance");
+						System.out.println("------------------------------------------------------");
+					    System.out.printf("%10s %10s %15s %15s", "Account", "User", "Name", "Balance");
 					    System.out.println();
-					    System.out.println("-------------------------------------------------");
+					    System.out.println("------------------------------------------------------");
 						for (Account a : accountList) {
-							System.out.format("%10d %10d %10s %15.2f",
+							System.out.format("%10d %10d %15s %15.2f",
 					                a.getAccountId(), a.getUserId(), a.getName(), a.getBalance());
 					        System.out.println();
 						}
-					    System.out.println("-------------------------------------------------");
+					    System.out.println("------------------------------------------------------");
 					}
 					break;
 					
@@ -354,9 +350,9 @@ public class Console {
 				case 3:
 					System.out.println("Enter the account ID number for the account you want to delete:"
 							+ "\n(keep in mind you can only delete an account with a balance of $0.00)");
-					int accountid = scan.nextInt();
+					accountId = scan.nextInt();
 					
-					if (asi.deleteAccount(accountid))
+					if (asi.deleteAccount(accountId))
 						System.out.println("*Account deleted successfully*");
 					else
 						System.out.println("*Account could not be deleted*");
@@ -379,12 +375,12 @@ public class Console {
 					
 				case 5:
 					System.out.println("Enter the account number you want to deposit into:");
-					int accountid3 = scan.nextInt();
+					accountId = scan.nextInt();
 					System.out.println("Enter the amount you want to deposit (enter as a decimal):");
 					float amount2 = scan.nextFloat();
 										
-					if (asi.deposit(amount2, accountid3)) {
-						Transaction t1 = new Transaction(bankUser.getId(), 0000000, accountid3, "Deposit", amount2);
+					if (asi.deposit(amount2, accountId)) {
+						Transaction t1 = new Transaction(bankUser.getId(), 0000000, accountId, "Deposit", amount2);
 						tsi.addTransaction(t1);
 						System.out.println("*Deposit successful*");
 					}
